@@ -10,7 +10,7 @@ arg_parser = argparse.ArgumentParser()
 arg_parser.add_argument("inputfile")
 arg_parser.add_argument("bnsfile")
 arg_parser.add_argument("--k", type=int, default=6)
-arg_parser.add_argument("--window", type=int, default=2)
+arg_parser.add_argument("--window", type=int, default=1)
 arg_parser.add_argument("--bns_column", type=int, default=5)
 
 args=arg_parser.parse_args()
@@ -56,6 +56,6 @@ for fasta in fasta_sequences:
     affinity_gm_norm= math.pow(affinity_gm,1.0/float(len(sequence)))
     affinity_window_max_norm= affinity_window_max / window
 
-    print fasta.id[2:] +"\t"+str(max_affinity)+"\t"+str(affinity_window_max)+"\t"+str(affinity_sum_norm)+"\t"+str(affinity_gm_norm)
+    print fasta.id +"\t"+str(max_affinity)+"\t"+str(affinity_window_max)+"\t"+str(affinity_sum_norm)+"\t"+str(affinity_gm_norm)
 
 
