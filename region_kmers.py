@@ -30,6 +30,7 @@ with open(args.bnsfile) as f:
 
 fasta_sequences = SeqIO.parse(open(args.inputfile),'fasta')
 for fasta in fasta_sequences:
+    max_index = -1
     sequence = str(fasta.seq).upper()
     lstart = len(sequence)-k
     max_affinity = -1000
@@ -40,6 +41,7 @@ for fasta in fasta_sequences:
         kmer=sequence[i:i+k]
         if kmer_affinities[kmer] > max_affinity:
             max_affinity = kmer_affinities[kmer]
+            max_index = i
         affinity_sum = affinity_sum + kmer_affinities[kmer]
         affinity_gm = float(affinity_gm) * float(kmer_affinities[kmer])
         affinity_window = 0
@@ -56,6 +58,6 @@ for fasta in fasta_sequences:
     affinity_gm_norm= math.pow(affinity_gm,1.0/float(len(sequence)))
     affinity_window_max_norm= affinity_window_max / window
 
-    print fasta.id +"\t"+str(max_affinity)+"\t"+str(affinity_window_max)+"\t"+str(affinity_sum_norm)+"\t"+str(affinity_gm_norm)
+    print fasta.id +"\t"+str(max_affinity)+"\t"+str(max_index)+"\t"+str(affinity_window_max)+"\t"+str(affinity_sum_norm)+"\t"+str(affinity_gm_norm)
 
 
